@@ -1,3 +1,7 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 .container {
   background-color: #333;
   color: white;
@@ -92,3 +96,30 @@
     max-height: 600px;
     border-radius: 5px;
   }
+    
+ /* ProductList.css */
+
+/* Filter container styles */
+.filter-container {
+  @apply bg-gray-100 p-4 flex justify-between items-center mb-4;
+}
+
+/* Filter group styles */
+.filter-group {
+  @apply flex items-center;
+}
+
+/* Filter label styles */
+.filter-label {
+  @apply font-bold mr-2;
+}
+
+/* Filter checkboxes styles */
+.filter-checkboxes label {
+  @apply block mb-2;
+}
+
+/* Search input styles */
+.search-input {
+  @apply px-4 py-2 border border-gray-300 rounded-md;
+}

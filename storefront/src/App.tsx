@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
@@ -10,8 +10,8 @@ import Input from './components/Input';
 
 const UserRoleContext = createContext();
 
-function UserRoleToggle({ setUserRole }) {
-  const { userRole } = useContext(UserRoleContext);
+function UserRoleToggle() {
+  const { userRole, setUserRole } = useContext(UserRoleContext);
 
   return (
     <div className="form-check form-switch">
@@ -29,11 +29,13 @@ function UserRoleToggle({ setUserRole }) {
   );
 }
 
+function ErrorComponent() {
+  return <h1>Oops! Something went wrong.</h1>;
+}
+
 function App() {
   const [userRole, setUserRole] = useState('user');
   const [products, setProducts] = useState([]);
-
-  
 
   return (
     <UserRoleContext.Provider value={{ userRole, setUserRole }}>
@@ -60,7 +62,7 @@ function App() {
               Input
             </Link>
 
-            <UserRoleToggle setUserRole={setUserRole} />
+            <UserRoleToggle />
           </div>
 
           <Routes>
@@ -77,6 +79,7 @@ function App() {
                 )
               }
             />
+            <Route path="*" element={<ErrorComponent />} />
           </Routes>
         </Router>
       </div>
