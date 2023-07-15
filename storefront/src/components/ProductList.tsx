@@ -14,7 +14,6 @@ function ProductLists(): JSX.Element {
   const [typeFilter, setTypeFilter] = useState<string[]>([]);
   const [statusFilter, setStatusFilter] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     loadProducts();
@@ -82,14 +81,6 @@ function ProductLists(): JSX.Element {
 
   const filteredProducts = filterProducts(productList);
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleEditZatvori = () => {
-    setIsEditing(false);
-  };
-
   interface Product {
     selectedVariant: any | null;
   }
@@ -102,70 +93,81 @@ function ProductLists(): JSX.Element {
           Products List
         </h1>
       </div>
-      <div className="filtar">
-        <div>
-          <label></label>
+      <div className="filter-container">
+        <div className="filter-group">
+          <label className="filter-label"></label>
+          <Dropdown>
+            <Dropdown.Toggle variant="light" id="typeFilterDropdown">
+              Type
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => handleTypeFilterChange("hoodie")}>
+                Hoodie
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => handleTypeFilterChange("coffee-mug")}
+              >
+                Coffee mug
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleTypeFilterChange("shorts")}>
+                Shorts
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => handleTypeFilterChange("sweatpants")}
+              >
+                Sweatpants
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleTypeFilterChange("t-shirt")}>
+                T-shirt
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           <div>
-            <Dropdown>
-              <Dropdown.Toggle variant="light" id="typeFilterDropdown">
-                Type
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  onClick={() => handleTypeFilterChange("hoodie")}
-                >
-                  Hoodie
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => handleTypeFilterChange("coffee-mug")}
-                >
-                  Coffee mug
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => handleTypeFilterChange("shorts")}
-                >
-                  Shorts
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => handleTypeFilterChange("sweatpants")}
-                >
-                  Sweatpants
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => handleTypeFilterChange("t-shirt")}
-                >
-                  T-shirt
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            {typeFilter.length > 0 && (
+              <div>
+             {typeFilter.length > 0 &&
+    typeFilter.map((type) => (
+      <span key={type} className="selected-filter">
+        {type}
+      </span>
+    ))}
+            
           </div>
         </div>
-        <div>
-          <label></label>
+        <div className="filter-group">
+          <label className="filter-label"></label>
+          <Dropdown>
+            <Dropdown.Toggle variant="light" id="statusFilterDropdown">
+              Status
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item
+                onClick={() => handleStatusFilterChange("published")}
+              >
+                Published
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => handleStatusFilterChange("unpublished")}
+              >
+                Unpublished
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           <div>
-            <Dropdown>
-              <Dropdown.Toggle variant="light" id="statusFilterDropdown">
-                Status
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  onClick={() => handleStatusFilterChange("published")}
-                >
-                  Published
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => handleStatusFilterChange("unpublished")}
-                >
-                  Unpublished
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            {statusFilter.length > 0 && (
+              <div>
+                Selected Status:
+                {statusFilter.map((status) => (
+                  <span key={status}>{status}</span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-        <div>
-          <label htmlFor="searchQuery">Search:</label>
+        <div className="filter-group">
+          <label htmlFor="searchQuery" className="filter-label">
+            Search:
+          </label>
           <input
             id="searchQuery"
             type="text"
